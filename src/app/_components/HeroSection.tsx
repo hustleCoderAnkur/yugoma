@@ -163,7 +163,7 @@ function HeroSection() {
                     Work Smarter
                     <br />
                     Let Yugoma Handle{" "}
-                    <div className="italic mt-4 font-serif bg-linear-to-r from-slate-950 to-emerald-500 bg-clip-text text-transparent">
+                    <div className="italic mt-2 font-serif bg-linear-to-r from-slate-950 to-emerald-500 bg-clip-text text-transparent">
                         The Busywork
                     </div>
                 </h1>

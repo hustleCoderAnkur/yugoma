@@ -14,8 +14,11 @@ import {
     Bot,
     User,
     Loader2,
+    ChevronDown,
+    LogOut,
+    Settings,
 } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 import { COMMANDS } from "@/lib/constants";
 
 type Message = {
@@ -125,7 +128,7 @@ async function mockSendToAgent(
         setTimeout(resolve, 1000)
     );
 
-    return `Hello! You said:\n\n${query}`;
+    return `\n\n${query}`;
 }
 
 function ChatInput({
@@ -175,7 +178,7 @@ function ChatInput({
 export default function AgentPage() {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const [profileOpen, setProfileOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
 
     const bottomRef =
@@ -243,16 +246,64 @@ export default function AgentPage() {
         }
     };
 
+
+    const router = useRouter();
+
     return (
         <div className="flex h-screen flex-col bg-gray-50">
-            <div className="border-b border-gray-100 bg-white px-6 py-5">
-                <h1 className="text-2xl font-bold text-black">
-                    Yugoma Agent
-                </h1>
+            <div className="flex items-center justify-between border-b border-gray-100 bg-white px-6 py-5">
+                <div>
+                    <h1 className="text-2xl font-bold text-black">
+                        Yugoma Agent
+                    </h1>
 
-                <p className="mt-1 text-sm text-gray-500">
-                    Email + Calendar AI assistant
-                </p>
+                    <p className="mt-1 text-sm text-gray-500">
+                        Email + Calendar AI assistant
+                    </p>
+                </div>
+
+                <div className="relative">
+                    <button
+                        onClick={() => setProfileOpen(!profileOpen)}
+                        className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 shadow-sm hover:bg-gray-50"
+                    >
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
+                            <User className="h-4 w-4" />
+                        </div>
+
+                        <ChevronDown className="h-4 w-4 text-gray-500" />
+                    </button>
+
+                    {profileOpen && (
+                        <div className="absolute right-0 top-14 w-56 rounded-2xl border border-gray-100 bg-white p-2 shadow-xl">
+                            <button
+                                onClick={() => router.push("/profile")}
+                                className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm hover:bg-gray-50"
+                            >
+                                <User className="h-4 w-4" />
+                                Profile
+                            </button>
+
+                            <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm hover:bg-gray-50">
+                                <Settings className="h-4 w-4" />
+                                Settings
+                            </button>
+
+                            <button
+                                onClick={() => {
+                                    localStorage.removeItem("accessToken");
+                                    localStorage.removeItem("refreshToken");
+
+                                    router.push("/auth/login");
+                                }}
+                                className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-red-500 hover:bg-red-50"
+                            >
+                                <LogOut className="h-4 w-4" />
+                                Logout
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div className="flex-1 overflow-y-auto px-6 py-6">

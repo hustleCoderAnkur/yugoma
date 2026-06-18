@@ -1,5 +1,6 @@
 "use client";
 
+import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -29,8 +30,10 @@ export default function Navbar() {
     return (
         <header className="fixed top-0 inset-x-0 z-50 border-b border-gray-100 bg-white/70 backdrop-blur-xl">
             <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                    <div className="h-7 w-7 rounded-xl bg-emerald-500" />
+                <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500">
+                        <Sparkles className="h-5 w-5 text-white" />
+                    </div>
                     <span className="text-lg font-semibold tracking-tight text-black">
                         Yugoma
                     </span>
