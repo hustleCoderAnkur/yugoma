@@ -2,11 +2,15 @@ import { sendEmail } from "./sendEmail";
 
 export async function replyEmail(
     tenantId: string,
-    raw: string,
+    to: string,
+    subject: string,
+    body: string,
     threadId: string,
 ) {
     return sendEmail(tenantId, {
-        raw,
+        to,
+        subject,
+        body,
         threadId,
     });
 }

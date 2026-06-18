@@ -4,10 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-
-
-
-
 export default function Navbar() {
     const router = useRouter()
     const [hasToken, setHasToken] = useState(false);
@@ -30,7 +26,6 @@ export default function Navbar() {
         }
     };
 
-
     return (
         <header className="fixed top-0 inset-x-0 z-50 border-b border-gray-100 bg-white/70 backdrop-blur-xl">
             <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -48,7 +43,6 @@ export default function Navbar() {
                     <Link href="#how-it-works" className="hover:text-black  font-bold transition-colors">
                         How it Works
                     </Link>
-
                 </nav>
 
                 <button

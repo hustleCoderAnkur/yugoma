@@ -271,7 +271,7 @@ function ChangePasswordCard() {
                     onChange={(e) =>
                         setCurrentPassword(e.target.value)
                     }
-                    placeholder="••••••••"
+                    placeholder=""
                     autoComplete="current-password"
                 />
 
@@ -295,7 +295,7 @@ function ChangePasswordCard() {
                     onChange={(e) =>
                         setConfirmPassword(e.target.value)
                     }
-                    placeholder="••••••••"
+                    placeholder=""
                     autoComplete="new-password"
                 />
 

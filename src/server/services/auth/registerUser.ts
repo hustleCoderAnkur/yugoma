@@ -17,7 +17,6 @@ export async function registerUser({
   password,
 }: RegisterUserInput) {
 
-  // Check existing email
   const existingUser = await db.query.users.findFirst({
     where: eq(users.email, email),
   });
@@ -26,7 +25,6 @@ export async function registerUser({
     throw new Error("Email already exists");
   }
   
-  // Check existing username
   const existingUsername = await db.query.users.findFirst({
     where: eq(users.username, username),
   });
@@ -35,10 +33,8 @@ export async function registerUser({
     throw new Error("Username already exists");
   }
   
-  // Hash password
   const hashedPassword = await hashPassword(password);
 
-  // Create user
   const [newUser] = await db
   .insert(users)
   .values({

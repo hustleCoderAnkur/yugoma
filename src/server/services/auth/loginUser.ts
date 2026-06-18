@@ -19,7 +19,6 @@ export async function loginUser({
   email,
   password,
 }: LoginUserInput) {
-  // Find user
   const user = await db.query.users.findFirst({
     where: eq(users.email, email),
   });
@@ -28,7 +27,6 @@ export async function loginUser({
     throw new Error("User not found");
   }
 
-  // Verify password
   const isPasswordValid = await comparePassword(
     password,
     user.password
@@ -38,7 +36,6 @@ export async function loginUser({
     throw new Error("Invalid credentials");
   }
 
-  // Generate tokens
   const accessToken = generateAccessToken({
     id: user.id,
     email: user.email,

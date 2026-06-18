@@ -89,13 +89,17 @@ export const gmailRouter = createTRPCRouter({
         .input(
             z.object({
                 tenantId: z.string(),
-                raw: z.string(),
-                threadId: z.string(),
+                to: z.string(),
+                subject: z.string(),
+                body: z.string(),
+                threadId: z.string().optional(),
             }),
         )
         .mutation(async ({ input }) => {
             return sendEmail(input.tenantId, {
-                raw: input.raw,
+                to: input.to,
+                subject: input.subject,
+                body: input.body,
                 threadId: input.threadId,
             });
         }),
@@ -104,14 +108,18 @@ export const gmailRouter = createTRPCRouter({
         .input(
             z.object({
                 tenantId: z.string(),
-                raw: z.string(),
+                to: z.string(),
+                subject: z.string(),
+                body: z.string(),
                 threadId: z.string(),
             }),
         )
         .mutation(async ({ input }) => {
             return replyEmail(
                 input.tenantId,
-                input.raw,
+                input.to,
+                input.subject,
+                input.body,
                 input.threadId,
             );
         }),

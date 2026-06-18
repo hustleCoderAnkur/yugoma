@@ -1,7 +1,6 @@
 
 "use client";
 import { ArrowRight, BarChart3, Bell, CalendarDays, ListChecks, Mail, Play, Repeat2, Reply, Sparkles, Users } from "lucide-react";
-import GradientBlob from "~/components/ui/GradientBlob";
 
 
 import { useRouter } from "next/navigation";
@@ -51,33 +50,27 @@ function AiOrb() {
         }
       `}</style>
 
-            {/* Ambient glow */}
             <div
                 className="absolute h-80 w-80 rounded-full bg-slate-950/20 blur-[100px]"
                 style={{ animation: "pulseGlow 6s ease-in-out infinite" }}
             />
-            {/* Secondary glow */}
             <div
                 className="absolute h-60 w-60 rounded-full bg-emerald-500/20 blur-[80px]"
                 style={{ animation: "pulseGlow 8s ease-in-out infinite reverse" }}
             />
 
-            {/* Outer static ring */}
             <div className="absolute h-72 w-72 rounded-full border border-white/10" />
 
-            {/* Rotating dashed ring */}
             <div
                 className="absolute h-64 w-64 rounded-full border border-dashed border-white/15"
                 style={{ animation: "orbitSpin 30s linear infinite" }}
             />
 
-            {/* Faint counter-rotating ring — adds depth */}
             <div
                 className="absolute h-88 w-88 rounded-full border border-white/6"
                 style={{ animation: "orbitSpin 45s linear infinite reverse" }}
             />
 
-            {/* Main orb */}
             <div className="relative flex h-56 w-56 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-3xl shadow-[0_40px_120px_rgba(168,85,247,0.35)]">
                 <div className="absolute inset-1 rounded-full bg-slate-900" />
                 <div className="absolute top-8 left-10 h-12 w-12 rounded-full bg-white/25 blur-xl" />
@@ -87,8 +80,6 @@ function AiOrb() {
                 </div>
             </div>
 
-            {/* Inner ring — core features (corners) */}
-            {/* Top Left */}
             <FloatingCard
                 icon={Mail}
                 label="Email Assistant"
@@ -96,7 +87,6 @@ function AiOrb() {
                 delay="0s"
             />
 
-            {/* Top Center */}
             <FloatingCard
                 icon={Reply}
                 label="Smart Replies"
@@ -104,7 +94,6 @@ function AiOrb() {
                 delay="0.3s"
             />
 
-            {/* Top Right */}
             <FloatingCard
                 icon={CalendarDays}
                 label="Calendar"
@@ -112,7 +101,6 @@ function AiOrb() {
                 delay="1.2s"
             />
 
-            {/* Left Middle */}
             <FloatingCard
                 icon={Users}
                 label="Meeting Scheduler"
@@ -120,7 +108,6 @@ function AiOrb() {
                 delay="0.9s"
             />
 
-            {/* Right Middle */}
             <FloatingCard
                 icon={ListChecks}
                 label="Task Tracking"
@@ -128,7 +115,6 @@ function AiOrb() {
                 delay="2.1s"
             />
 
-            {/* Bottom Left */}
             <FloatingCard
                 icon={Bell}
                 label="Reminders"
@@ -136,7 +122,6 @@ function AiOrb() {
                 delay="0.6s"
             />
 
-            {/* Bottom Center */}
             <FloatingCard
                 icon={Repeat2}
                 label="Follow-Ups"
@@ -144,7 +129,6 @@ function AiOrb() {
                 delay="1.5s"
             />
 
-            {/* Bottom Right */}
             <FloatingCard
                 icon={BarChart3}
                 label="Daily Summary"

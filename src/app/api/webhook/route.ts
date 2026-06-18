@@ -28,13 +28,11 @@ export async function POST(req: Request) {
         console.dir(result, { depth: null });
         console.dir(body, { depth: null });
 
-        // Guard: tenantId required for all handlers
         if (!tenantId) {
             console.warn("[webhook] tenantId missing, skipping handler");
             return NextResponse.json(result.response);
         }
 
-        // ─── Gmail Events ───────────────────────────────────────────
 
         if (result.plugin === "gmail") {
             const gmailBody = body as {

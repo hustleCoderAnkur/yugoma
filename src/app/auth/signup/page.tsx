@@ -195,7 +195,6 @@ export default function SignupPage() {
         }
       `}</style>
 
-            {/* Form column */}
             <div className="relative flex-1 flex flex-col">
                 <div className="px-8 sm:px-14 pt-8">
                     <Link href="/" className="inline-flex items-center gap-2" >
@@ -315,7 +314,7 @@ export default function SignupPage() {
                                     <a href="#" className="text-black hover:underline">
                                         Privacy Policy
                                     </a>
-                                    .
+                                    
                                 </span>
                             </label>
 

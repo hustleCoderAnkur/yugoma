@@ -4,7 +4,7 @@
     "target": "ES2022",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "allowJs": true,
-   "checkJs": false,
+    "checkJs": false,
     "skipLibCheck": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -24,26 +24,28 @@
     "incremental": true,
     "noEmit": true,
 
-    /* Temporary TS6 warning suppression */
-    "ignoreDeprecations": "6.0",
+    /* TS deprecation warnings */
+    "ignoreDeprecations": "5.0",
 
     /* Path Aliases */
-    "baseUrl": ".",
     "paths": {
-  "@/*": ["./src/*"],
-  "~/*": ["./src/*"]
-}
+      "@/*": ["./src/*"],
+      "~/*": ["./src/*"]
+    }
   },
 
-"include": [
-  "next-env.d.ts",
-  "next-routes.d.ts",
-  "**/*.ts",
-  "**/*.tsx",
-  "**/*.js",
-  "**/*.cjs",
-  ".next/types/**/*.ts"
-],
+  "include": [
+    "next-env.d.ts",
+    "next-routes.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.cjs",
+    ".next/types/**/*.ts"
+  ],
 
-  "exclude": ["node_modules", "generated"]
+  "exclude": [
+    "node_modules",
+    "generated"
+  ]
 }

@@ -17,7 +17,6 @@ function DashboardMockup() {
 
     return (
         <div className="rounded-3xl border border-gray-100 bg-white shadow-2xl shadow-slate-100 overflow-hidden">
-            {/* window chrome */}
             <div className="flex items-center gap-2 px-5 py-3.5 border-b border-gray-100 bg-gray-50">
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
                 <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
@@ -26,7 +25,6 @@ function DashboardMockup() {
             </div>
 
             <div className="flex">
-                {/* sidebar */}
                 <div className="hidden sm:flex w-48 flex-col gap-1 border-r border-gray-100 p-4">
                     {SIDEBAR.map(({ icon: Icon, label, active }) => (
                         <div
@@ -42,7 +40,6 @@ function DashboardMockup() {
                     ))}
                 </div>
 
-                {/* main */}
                 <div className="flex-1 p-6 sm:p-8 space-y-5">
                     <div className="flex justify-end">
                         <div className="max-w-sm rounded-2xl rounded-tr-sm bg-black text-white text-sm px-4 py-3 leading-relaxed">
