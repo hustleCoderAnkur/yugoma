@@ -15,6 +15,7 @@ import {
     User,
     Loader2,
 } from "lucide-react";
+
 import { COMMANDS } from "@/lib/constants";
 
 type Message = {
@@ -57,10 +58,10 @@ function MessageBubble({
         >
             <div
                 className={`max-w-[85%] rounded-3xl px-5 py-4 shadow-sm ${error
-                    ? "border border-red-100 bg-red-50"
-                    : isUser
-                        ? "bg-black text-white"
-                        : "border border-gray-100 bg-white"
+                        ? "border border-red-100 bg-red-50"
+                        : isUser
+                            ? "bg-black text-white"
+                            : "border border-gray-100 bg-white"
                     }`}
             >
                 <div className="mb-2 flex items-center gap-2">
@@ -97,7 +98,8 @@ function EmptyState({
             </h2>
 
             <p className="mt-2 max-w-md text-sm leading-relaxed text-gray-500">
-                Email, calendar and productivity actions through natural language.
+                Email, calendar and productivity actions through natural
+                language.
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -120,10 +122,10 @@ async function mockSendToAgent(
     query: string
 ): Promise<string> {
     await new Promise((resolve) =>
-        setTimeout(resolve, 1200)
+        setTimeout(resolve, 1000)
     );
 
-    return `Received command:\n\n${query}\n\nAgent execution will be connected later.`;
+    return `Hello! You said:\n\n${query}`;
 }
 
 function ChatInput({
@@ -150,7 +152,7 @@ function ChatInput({
                     onKeyDown={handleKeyDown}
                     rows={1}
                     placeholder="Ask Yugoma..."
-                    className="min-h-52px flex-1 resize-none rounded-3xl border border-gray-200 bg-gray-50 px-5 py-3 outline-none"
+                    className="min-h-[52px] flex-1 resize-none rounded-3xl border border-gray-200 bg-gray-50 px-5 py-3 outline-none"
                 />
 
                 <button
