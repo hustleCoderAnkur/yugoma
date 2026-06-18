@@ -294,7 +294,7 @@ export default function AgentPage() {
                                 onClick={() => {
                                     localStorage.removeItem("accessToken");
                                     localStorage.removeItem("refreshToken");
-
+                                    localStorage.removeItem("tenantId");
                                     router.push("/auth/login");
                                 }}
                                 className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-red-500 hover:bg-red-50"

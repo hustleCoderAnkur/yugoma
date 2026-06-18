@@ -136,6 +136,7 @@ export default function LoginPage() {
         onSuccess: (data) => {
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("refreshToken", data.refreshToken);
+            localStorage.setItem("tenantId", data.user.email);
             router.push("/agent");
         },
 
