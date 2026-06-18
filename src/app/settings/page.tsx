@@ -8,7 +8,6 @@ export default function SettingsPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
             <div className="border-b border-gray-100 bg-white px-6 py-5">
                 <div className="mx-auto flex max-w-2xl items-center justify-between">
                     <button
@@ -24,11 +23,9 @@ export default function SettingsPage() {
                 </div>
             </div>
 
-            {/* WIP Content */}
             <div className="flex min-h-[calc(100vh-73px)] items-center justify-center px-6">
                 <div className="mx-auto max-w-md text-center">
 
-                    {/* Icon */}
                     <div className="relative mx-auto mb-8 flex h-24 w-24 items-center justify-center">
                         <div className="absolute inset-0 rounded-3xl bg-amber-100 opacity-60 blur-xl" />
                         <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-amber-100 bg-amber-50 shadow-sm">
@@ -36,23 +33,21 @@ export default function SettingsPage() {
                         </div>
                     </div>
 
-                    {/* Badge */}
                     <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-amber-100 bg-amber-50 px-3 py-1">
                         <Sparkles className="h-3 w-3 text-amber-500" />
                         <span className="text-xs font-medium text-amber-600">Coming Soon</span>
                     </div>
 
-                    {/* Title */}
                     <h1 className="text-4xl font-bold tracking-tight text-black">
                         We are building
                         <br />
-                        <span className="italic font-serif bg-gradient-to-r from-slate-900 to-emerald-500 bg-clip-text text-transparent">
+                        <span className="italic font-serif bg-emerald-500 bg-clip-text text-transparent">
                             something great
                         </span>
                     </h1>
 
                     <p className="mt-4 text-sm leading-relaxed text-gray-500">
-                        Settings are currently under construction. Notifications, appearance, privacy controls and more — all on the way.
+                        Settings are currently under construction. Notifications, appearance, privacy controls and more all on the way.
                     </p>
 
                     {/* Upcoming features */}

@@ -7,7 +7,7 @@ import React, {
     type ChangeEvent,
     type KeyboardEvent,
 } from "react";
-
+import { api } from "@/trpc/react";
 import {
     Send,
     Sparkles,
@@ -61,10 +61,10 @@ function MessageBubble({
         >
             <div
                 className={`max-w-[85%] rounded-3xl px-5 py-4 shadow-sm ${error
-                        ? "border border-red-100 bg-red-50"
-                        : isUser
-                            ? "bg-black text-white"
-                            : "border border-gray-100 bg-white"
+                    ? "border border-red-100 bg-red-50"
+                    : isUser
+                        ? "bg-black text-white"
+                        : "border border-gray-100 bg-white"
                     }`}
             >
                 <div className="mb-2 flex items-center gap-2">
@@ -121,16 +121,6 @@ function EmptyState({
     );
 }
 
-async function mockSendToAgent(
-    query: string
-): Promise<string> {
-    await new Promise((resolve) =>
-        setTimeout(resolve, 1000)
-    );
-
-    return `\n\n${query}`;
-}
-
 function ChatInput({
     value,
     onChange,
@@ -184,6 +174,9 @@ export default function AgentPage() {
     const bottomRef =
         useRef<HTMLDivElement | null>(null);
 
+    // ── real tRPC mutation ──────────────────────────────────────
+    const chatMutation = api.agent.chat.useMutation();
+
     useEffect(() => {
         bottomRef.current?.scrollIntoView({
             behavior: "smooth",
@@ -213,13 +206,20 @@ export default function AgentPage() {
         setLoading(true);
 
         try {
-            const response =
-                await mockSendToAgent(trimmed);
+            // ── real call → agentRouter.chat ────────────────────
+            const tenantId =
+                localStorage.getItem("tenantId") ?? "";
+
+            const result = await chatMutation.mutateAsync({
+                tenantId,
+                query: trimmed,
+            });
 
             const assistantMessage: Message = {
                 id: crypto.randomUUID(),
                 role: "assistant",
-                content: response,
+                content: result.response,
+                error: !result.success,
             };
 
             setMessages((prev) => [
@@ -245,7 +245,6 @@ export default function AgentPage() {
             setLoading(false);
         }
     };
-
 
     const router = useRouter();
 
@@ -284,7 +283,9 @@ export default function AgentPage() {
                                 Profile
                             </button>
 
-                            <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm hover:bg-gray-50">
+                            <button
+                                onClick={()=> router.push("settings")}
+                                className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm hover:bg-gray-50">
                                 <Settings className="h-4 w-4" />
                                 Settings
                             </button>
