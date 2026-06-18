@@ -1,29 +1,123 @@
-# Create T3 App
+# Yugoma
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Yugoma is an AI-powered productivity workspace that helps users manage emails, calendars, and daily tasks through natural language. It combines authentication, AI agents, and productivity tools into a single interface to reduce app switching and improve workflow efficiency.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+* Secure user authentication
+* JWT access and refresh tokens
+* AI chat interface
+* Email workflow support
+* Calendar integration architecture
+* Change password functionality
+* User profile page
+* Responsive modern UI
+* Type-safe APIs with tRPC
+* PostgreSQL database with Drizzle ORM
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* tRPC
+* PostgreSQL
+* Drizzle ORM
+* JWT
+* bcrypt
+* OpenAI Agents
+* Corsair Integrations
 
-## Learn More
+## Project Structure
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```text
+src/
+├── app/
+├── components/
+├── lib/
+├── server/
+│   ├── api/
+│   ├── db/
+│   ├── services/
+│   └── utils/
+├── trpc/
+└── env.js
+```
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Installation
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+Clone the repository:
 
-## How do I deploy this?
+```bash
+git clone https://github.com/hustleCoderAnkur/yugoma.git
+cd yugoma
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file and add:
+
+```env
+DATABASE_URL=
+JWT_SECRET=
+JWT_REFRESH_SECRET=
+OPENAI_API_KEY=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+CORSAIR_KEK=
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+## Available Scripts
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run db:generate
+npm run db:push
+npm run db:migrate
+```
+
+## Authentication
+
+Yugoma uses:
+
+* bcrypt for password hashing
+* JWT access tokens
+* JWT refresh tokens
+
+## Deployment
+
+Frontend and backend are deployed using Vercel.
+
+## Future Improvements
+
+* Gmail integration
+* Google Calendar integration
+* Real AI execution
+* Multi-agent workflows
+* Notifications and reminders
+* Analytics dashboard
+
+## Author
+
+**Ankur Kumawat**
+
+GitHub: https://github.com/hustleCoderAnkur
