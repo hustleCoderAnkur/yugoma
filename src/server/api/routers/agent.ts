@@ -1,8 +1,10 @@
 import { z } from "zod";
 import { run } from "@openai/agents";
+import { eq } from "drizzle-orm";
 
-import { agent } from "~/ai/agent";
-import { corsair } from "~/server/corsair";
+import { createAgent } from "~/ai/agent";        
+import { db } from "@/server/db";
+import { users } from "@/server/db/schema";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const agentRouter = createTRPCRouter({
@@ -24,51 +26,24 @@ export const agentRouter = createTRPCRouter({
             );
 
             try {
-                const tenant = corsair.withTenant(tenantId);
-                console.log("=== CORSAIR DEBUG ===");
-                console.log(JSON.stringify(tenant.gmail, null, 2));
-                console.log("gmail type:", typeof tenant.gmail);
-                console.log("gmail own props:", Object.getOwnPropertyNames(tenant.gmail));
-                console.log("gmail proto props:", Object.getOwnPropertyNames(Object.getPrototypeOf(tenant.gmail)));
-                console.log("gmail.api type:", typeof tenant.gmail?.api);
-                console.log("gmail.api own props:", Object.getOwnPropertyNames(tenant.gmail?.api ?? {}));
+                const user = await db.query.users.findFirst({
+                    where: eq(users.email, tenantId),
+                });
 
-                console.log("=== CORSAIR DEBUG ===");
-                console.log("tenant keys:", Object.keys(tenant));
+                if (!user) {
+                    throw new Error("User not found");
+                }
 
-                console.dir(tenant.gmail, { depth: null });
-                console.dir(tenant.googlecalendar, { depth: null });
+                const userAgent = createAgent(user.username, user.email);
 
-                console.log(
-                    "gmail prototype:",
-                    Object.getOwnPropertyNames(
-                        Object.getPrototypeOf(tenant.gmail),
-                    ),
-                );
-
-                console.log(
-                    "calendar prototype:",
-                    Object.getOwnPropertyNames(
-                        Object.getPrototypeOf(tenant.googlecalendar),
-                    ),
-                );
-
-                const result = await run(agent, query, {
+                const result = await run(userAgent, query, {  
                     context: {
                         tenantId,
                     },
                 });
 
-                console.dir(result, { depth: null });
-
                 console.log("FINAL OUTPUT:");
                 console.log(result.finalOutput);
-
-                console.log("NEW ITEMS:");
-                console.dir(result.newItems, { depth: null });
-
-                console.log("LAST AGENT:");
-                console.dir(result.lastAgent, { depth: null });
 
                 const response =
                     typeof result.finalOutput === "string"
