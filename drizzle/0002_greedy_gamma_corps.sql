@@ -1,0 +1,12 @@
+CREATE TABLE "users" (
+	"id" text PRIMARY KEY NOT NULL,
+	"username" varchar(50) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"password" text NOT NULL,
+	"image" text,
+	"is_verified" boolean DEFAULT false NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "users_username_unique" UNIQUE("username"),
+	CONSTRAINT "users_email_unique" UNIQUE("email")
+);
