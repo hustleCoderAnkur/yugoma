@@ -52,7 +52,7 @@ export default function Navbar() {
                     onClick={handleGetStarted}
                     className="group inline-flex items-center gap-1.5 rounded-full bg-black text-white text-sm font-medium pl-5 pr-4 py-2.5 hover:bg-gray-800 transition-colors"
                 >
-                    {hasToken ? "Sign In" : "Sign Up"}
+                    {hasToken ? "Login" : "Sign Up"}
                 </button>
             </div>
         </header>
