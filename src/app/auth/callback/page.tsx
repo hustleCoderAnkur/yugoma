@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type GoogleTokenResponse = {
@@ -11,10 +11,10 @@ type GoogleTokenResponse = {
 type GoogleCallbackResponse = {
     success: boolean;
     message?: string;
-    tokens: GoogleTokenResponse;
+    tokens?: GoogleTokenResponse;
 };
 
-export default function CallbackPage() {
+function CallbackContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -31,10 +31,13 @@ export default function CallbackPage() {
                     `/api/auth/google/callback?code=${code}`,
                 );
 
-                const data = (await response.json()) as GoogleCallbackResponse;
+                const data =
+                    (await response.json()) as GoogleCallbackResponse;
 
-                if (!data.success) {
-                    throw new Error(data.message);
+                if (!data.success || !data.tokens) {
+                    throw new Error(
+                        data.message ?? "Authentication failed",
+                    );
                 }
 
                 const tokens = data.tokens;
@@ -77,5 +80,19 @@ export default function CallbackPage() {
                 </p>
             </div>
         </div>
+    );
+}
+
+export default function CallbackPage() {
+    return (
+        <Suspense
+            fallback={
+                <div className="flex min-h-screen items-center justify-center">
+                    Loading...
+                </div>
+            }
+        >
+            <CallbackContent />
+        </Suspense>
     );
 }
