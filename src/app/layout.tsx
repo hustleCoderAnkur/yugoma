@@ -5,9 +5,13 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
-  title: "Corsair Mail Assistant",
+  title: "Yugoma",
   description: "AI powered Gmail and Google Calendar assistant",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+
+  verification: {
+    google: "WPZ6ikj7eYm5qpuwUAwZ0pA_5u9ymMtXNcLD6YJmFOI",
+  },
 };
 
 const geist = Geist({
@@ -21,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={geist.variable}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          {children}
+        </TRPCReactProvider>
       </body>
     </html>
   );
