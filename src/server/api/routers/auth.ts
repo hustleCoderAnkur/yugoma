@@ -7,6 +7,7 @@ import { registerUser } from "@/server/services/auth/registerUser";
 import { loginUser } from "@/server/services/auth/loginUser";
 import { getCurrentUser } from "@/server/services/auth/getCurrentUser";
 import { changePassword } from "@/server/services/auth/changePassword";
+import { deleteUser } from "@/server/services/auth/deleteUser";
 
 export const authRouter = createTRPCRouter({
   signup: publicProcedure
@@ -53,5 +54,15 @@ changePassword: publicProcedure
   .mutation(async ({ input }) => {
     return changePassword(input);
   }),
+
+  deleteAccount: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return deleteUser(input);
+    }),
 
 });

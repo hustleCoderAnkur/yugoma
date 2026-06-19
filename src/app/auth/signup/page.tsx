@@ -10,6 +10,7 @@ import {
     ArrowRight,
     BarChart3,
     CalendarDays,
+    Sparkles,
 } from "lucide-react";
 import type { ChangeEvent, FormEvent } from "react";
 import type { ComponentType, SVGProps } from "react";
@@ -196,7 +197,10 @@ export default function SignupPage() {
             <div className="relative flex-1 flex flex-col">
                 <div className="px-8 sm:px-14 pt-8">
                     <Link href="/" className="inline-flex items-center gap-2" >
-                        <div className="h-7 w-7 rounded-xl bg-emerald-600" />
+                   <div className="relative flex h-5 w-9 items-center justify-center">
+                        <div className="h-10 w-10 rounded-xl bg-emerald-500" />
+                            <Sparkles className="absolute h-5 w-5 text-white" />
+                        </div>
                         <span className="text-lg font-semibold tracking-tight">
                             Yugoma
                         </span>
@@ -205,14 +209,11 @@ export default function SignupPage() {
 
                 <div className="flex-1 flex items-center justify-center px-8 py-6">
                     <div className="w-full max-w-sm">
-                        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
-                            Create your{" "}
-                            <span className="italic font-serif bg-emerald-600 bg-clip-text text-transparent">
-                                account
-                            </span>
+                        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight italic bg-clip-text ">
+                            Create your account
                         </h1>
                         <p className="mt-3 text-sm text-gray-500 leading-relaxed">
-                            Let Yugoma start handling your inbox and calendar today.
+                            Let Yugoma start handling your inbox and calendar today
                         </p>
 
                         <button
@@ -245,7 +246,7 @@ export default function SignupPage() {
                                         required
                                         value={form.name}
                                         onChange={handleChange}
-                                        placeholder=""
+                                        placeholder="Enter your Name"
                                         className="w-full rounded-2xl border border-gray-200 bg-gray-50 pl-11 pr-4 py-3.5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-300 transition-all"
                                     />
                                 </div>
@@ -263,7 +264,7 @@ export default function SignupPage() {
                                         required
                                         value={form.email}
                                         onChange={handleChange}
-                                        placeholder=""
+                                        placeholder="Enter your Email"
                                         className="w-full rounded-2xl border border-gray-200 bg-gray-50 pl-11 pr-4 py-3.5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-300 transition-all"
                                     />
                                 </div>
@@ -282,7 +283,7 @@ export default function SignupPage() {
                                         minLength={8}
                                         value={form.password}
                                         onChange={handleChange}
-                                        placeholder=""
+                                        placeholder="Enter strong Password"
                                         className="w-full rounded-2xl border border-gray-200 bg-gray-50 pl-11 pr-11 py-3.5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-300 transition-all"
                                     />
                                     <button

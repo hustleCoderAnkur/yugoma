@@ -7,29 +7,46 @@ export async function getThread(
     const gmail = getGmailClient(tenantId);
 
     const thread =
-        await gmail.db.threads.findByEntityId(threadId);
+        await gmail.db.threads.findByEntityId(
+            threadId,
+        );
 
-    if (!thread) {
-        const apiThread = await gmail.api.threads.get({
+    const cachedMessages = thread
+        ? await gmail.db.messages.search({
+            data: {
+                threadId: {
+                    contains: threadId,
+                },
+            },
+        })
+        : [];
+
+    // Cache hit
+    if (
+        thread &&
+        cachedMessages.length > 0
+    ) {
+        return {
+            id: thread.data.id,
+            historyId: thread.data.historyId,
+            messages: cachedMessages.map(
+                (message) => message.data,
+            ),
+        };
+    }
+
+    // Cache miss → fetch live thread
+    const apiThread =
+        await gmail.api.threads.get({
             id: threadId,
         });
 
-        return apiThread;
-    }
+    console.log(
+        "LIVE THREAD:",
+        JSON.stringify(apiThread, null, 2),
+    );
 
-    const messages = await gmail.db.messages.search({
-        data: {
-            threadId: {
-                contains: threadId,
-            },
-        },
-    });
-
-    return {
-        id: thread.data.id,
-        historyId: thread.data.historyId,
-        messages: messages.map((m) => m.data),
-    };
+    return apiThread;
 }
 
 export async function getThreadStats(

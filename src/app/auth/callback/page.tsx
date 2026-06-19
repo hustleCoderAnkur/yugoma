@@ -12,6 +12,7 @@ type GoogleCallbackResponse = {
     success: boolean;
     message?: string;
     tokens?: GoogleTokenResponse;
+    email?: string;
 };
 
 function CallbackContent() {
@@ -30,7 +31,6 @@ function CallbackContent() {
                 const response = await fetch(
                     `/api/auth/google/callback?code=${code}`,
                 );
-
                 const data =
                     (await response.json()) as GoogleCallbackResponse;
 
@@ -51,6 +51,17 @@ function CallbackContent() {
                     localStorage.setItem(
                         "googleRefreshToken",
                         tokens.refresh_token,
+                    );
+                }
+
+                if (data.email) {
+                    localStorage.setItem(
+                        "tenantId",
+                        data.email,
+                    );
+                } else {
+                    console.warn(
+                        "Google callback succeeded but no email was returned; tenantId not set.",
                     );
                 }
 

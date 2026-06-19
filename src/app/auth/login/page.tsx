@@ -15,6 +15,7 @@ import {
     ArrowRight,
     CalendarDays,
     Bell,
+    Sparkles,
 } from "lucide-react";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
@@ -165,20 +166,22 @@ export default function LoginPage() {
         <div className="flex min-h-screen bg-white text-black">
             <div className="relative flex flex-1 flex-col">
                 <div className="px-8 pt-8 sm:px-14">
-                    <Link href="/" className="inline-flex items-center gap-2">
-                        <div className="h-7 w-7 rounded-xl bg-emerald-500" />
+                    <Link href="/" className="inline-flex items-center gap-3">
+                        <div className="relative flex h-10 w-10 items-center justify-center">
+                            <div className="h-10 w-10 rounded-xl bg-emerald-500" />
+                            <Sparkles className="absolute h-5 w-5 text-white" />
+                        </div>
 
-                        <span className="text-lg font-semibold">Yugoma</span>
+                        <span className="text-lg font-semibold">
+                            Yugoma
+                        </span>
                     </Link>
                 </div>
 
                 <div className="flex flex-1 items-center justify-center px-8">
                     <div className="w-full max-w-sm">
-                        <h1 className="text-4xl font-bold">
-                            Welcome{" "}
-                            <span className="bg-emerald-600 bg-clip-text font-serif italic text-transparent">
-                                back
-                            </span>
+                        <h1 className="text-5xl font-bold  bg-clip-text font-serif ">
+                            Welcome back
                         </h1>
 
                         <button
@@ -201,7 +204,7 @@ export default function LoginPage() {
                                     type="email"
                                     value={form.email}
                                     onChange={handleChange}
-                                    placeholder=""
+                                    placeholder="Enter Email"
                                     className="w-full rounded-2xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-4"
                                 />
                             </div>
@@ -214,6 +217,7 @@ export default function LoginPage() {
                                     type={showPassword ? "text" : "password"}
                                     value={form.password}
                                     onChange={handleChange}
+                                    placeholder="Enter Password"
                                     className="w-full rounded-2xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-11"
                                 />
 
