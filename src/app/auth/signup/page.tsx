@@ -309,13 +309,19 @@ export default function SignupPage() {
                                 />
                                 <span className="text-xs text-gray-500 leading-relaxed">
                                     I agree to the{" "}
-                                    <a href="#" className="text-black hover:underline">
+                                    <Link
+                                        href="/terms"
+                                        className="text-black hover:underline"
+                                    >
                                         Terms of Service
-                                    </a>{" "}
+                                    </Link>{" "}
                                     and{" "}
-                                    <a href="#" className="text-black hover:underline">
+                                    <Link
+                                        href="/privacy"
+                                        className="text-black hover:underline"
+                                    >
                                         Privacy Policy
-                                    </a>
+                                    </Link>
                                     
                                 </span>
                             </label>
