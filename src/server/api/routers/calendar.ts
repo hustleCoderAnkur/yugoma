@@ -1,7 +1,15 @@
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { and, eq } from "drizzle-orm";
 
+import { db } from "@/server/db";
+
+import {
+    corsairAccounts,
+    corsairEntities,
+    corsairEvents,
+} from "@/server/db/schema";
 import { listEvents } from "../../services/calendar/listEvents";
 import { getEvent } from "../../services/calendar/getEvent";
 import { createEvent } from "../../services/calendar/createEvent";
@@ -178,5 +186,65 @@ export const calendarRouter = createTRPCRouter({
                 input.tenantId,
                 input.limit,
             );
+        }),
+    
+    disconnectCalendar: publicProcedure
+        .input(
+            z.object({
+                tenantId: z.string(),
+            }),
+        )
+        .mutation(async ({ input }) => {
+            const CALENDAR_INTEGRATION_ID =
+                "324e6cb5-6363-4249-8039-6b2d850225ef";
+
+            const account =
+                await db.query.corsairAccounts.findFirst({
+                    where: and(
+                        eq(
+                            corsairAccounts.tenantId,
+                            input.tenantId,
+                        ),
+                        eq(
+                            corsairAccounts.integrationId,
+                            CALENDAR_INTEGRATION_ID,
+                        ),
+                    ),
+                });
+
+            if (!account) {
+                return { success: true };
+            }
+
+            await db
+                .delete(corsairEntities)
+                .where(
+                    eq(
+                        corsairEntities.accountId,
+                        account.id,
+                    ),
+                );
+
+            await db
+                .delete(corsairEvents)
+                .where(
+                    eq(
+                        corsairEvents.accountId,
+                        account.id,
+                    ),
+                );
+
+            await db
+                .delete(corsairAccounts)
+                .where(
+                    eq(
+                        corsairAccounts.id,
+                        account.id,
+                    ),
+                );
+
+            return {
+                success: true,
+            };
         }),
 });

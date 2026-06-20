@@ -1,7 +1,15 @@
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { and, eq } from "drizzle-orm";
 
+import { db } from "@/server/db";
+
+import {
+    corsairAccounts,
+    corsairEntities,
+    corsairEvents,
+} from "@/server/db/schema";
 import { listThreads } from "../../services/gmail/listThreads";
 import { getThread, getThreadStats } from "../../services/gmail/getThread";
 import { getUnreadCount, searchEmails } from "../../services/gmail/searchEmails";
@@ -476,5 +484,64 @@ export const gmailRouter = createTRPCRouter({
             );
         }),
     
-    
+    disconnectGmail: publicProcedure
+        .input(
+            z.object({
+                tenantId: z.string(),
+            }),
+        )
+        .mutation(async ({ input }) => {
+            const GMAIL_INTEGRATION_ID =
+                "f5b8125b-7c6c-4582-b2fa-0194c1edd3b1";
+
+            const account = await db.query.corsairAccounts.findFirst({
+                    where: and(
+                        eq(
+                            corsairAccounts.tenantId,
+                            input.tenantId,
+                        ),
+                        eq(
+                            corsairAccounts.integrationId,
+                            GMAIL_INTEGRATION_ID,
+                        ),
+                    ),
+                });
+
+            if (!account) {
+                return { success: true };
+            }
+
+            console.log(account.id);
+
+            await db
+                .delete(corsairEntities)
+                .where(
+                    eq(
+                        corsairEntities.accountId,
+                        account.id,
+                    ),
+                );
+
+            await db
+                .delete(corsairEvents)
+                .where(
+                    eq(
+                        corsairEvents.accountId,
+                        account.id,
+                    ),
+                );
+
+            await db
+                .delete(corsairAccounts)
+                .where(
+                    eq(
+                        corsairAccounts.id,
+                        account.id,
+                    ),
+                );
+
+            return {
+                success: true,
+            };
+        }),
 });

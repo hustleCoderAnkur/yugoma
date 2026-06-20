@@ -11,6 +11,7 @@ import {
     usePathname,
 } from "next/navigation";
 import { Switch } from "@headlessui/react";
+import { api } from "@/trpc/react";
 
 type SidebarProps = {
     gmailConnected: boolean;
@@ -50,6 +51,10 @@ export default function Sidebar({
         typeof window !== "undefined"
             ? localStorage.getItem("tenantId")
             : "";
+
+    const disconnectGmail = api.gmail.disconnectGmail.useMutation();
+
+    const disconnectCalendar = api.calendar.disconnectCalendar.useMutation();
 
     return (
         <>
@@ -127,10 +132,8 @@ export default function Sidebar({
 
                 <div className="flex-1" />
 
-                {/* Status */}
                 <div className="absolute bottom-5 left-5 right-5 space-y-3 border-t border-gray-100 pt-4">
 
-                    {/* Gmail */}
                     <div className="flex items-center justify-between rounded-2xl border border-gray-100 px-4 py-3">
                         <div>
                             <p className="text-sm font-medium text-gray-800">
@@ -152,15 +155,19 @@ export default function Sidebar({
                         
                         <Switch
                             checked={gmailConnected}
-                            onChange={(checked) => {
-                                if (!gmailConnected && checked) {
-                                 
-
+                            onChange={async (checked) => {
+                                if (checked) {
                                     router.push(
                                         `/api/connect?plugin=gmail&tenantId=${encodeURIComponent(
                                             tenantId ?? ""
                                         )}`
                                     );
+                                } else {
+                                    await disconnectGmail.mutateAsync({
+                                        tenantId: tenantId ?? "",
+                                    });
+
+                                    router.refresh();
                                 }
                             }}
                             className={`${gmailConnected
@@ -198,13 +205,19 @@ export default function Sidebar({
 
                         <Switch
                             checked={calendarConnected}
-                            onChange={(checked) => {
-                                if (!calendarConnected && checked) {
+                            onChange={async (checked) => {
+                                if (checked) {
                                     router.push(
                                         `/api/connect?plugin=googlecalendar&tenantId=${encodeURIComponent(
                                             tenantId ?? ""
                                         )}`
                                     );
+                                } else {
+                                    await disconnectCalendar.mutateAsync({
+                                        tenantId: tenantId ?? "",
+                                    });
+
+                                    router.refresh();
                                 }
                             }}
                             className={`${calendarConnected
