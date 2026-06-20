@@ -95,10 +95,18 @@ export default function AgentPage() {
             const tenantId =
                 localStorage.getItem("tenantId") ?? "";
 
+            const username =
+                localStorage.getItem("username") ?? "";
+
+            const email =
+                localStorage.getItem("tenantId") ?? "";
+
             const result =
                 await chatMutation.mutateAsync({
                     tenantId,
                     query: trimmed,
+                    username,
+                    email,
                 });
 
             const assistantMessage: Message = {

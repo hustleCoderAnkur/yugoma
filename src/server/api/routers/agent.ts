@@ -2,7 +2,7 @@ import { z } from "zod";
 import { run } from "@openai/agents";
 import { eq } from "drizzle-orm";
 
-import { createAgent } from "~/ai/agent";        
+import { createAgent } from "~/ai/agent";
 import { db } from "@/server/db";
 import { users } from "@/server/db/schema";
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -13,10 +13,17 @@ export const agentRouter = createTRPCRouter({
             z.object({
                 tenantId: z.string(),
                 query: z.string(),
+                username: z.string().optional(),
+                email: z.string().optional(),
             }),
         )
         .mutation(async ({ input }) => {
-            const { tenantId, query } = input;
+            const {
+                tenantId,
+                query,
+                username,
+                email,
+            } = input;
 
             console.log(
                 "[agent] Received query:",
@@ -30,13 +37,28 @@ export const agentRouter = createTRPCRouter({
                     where: eq(users.email, tenantId),
                 });
 
-                if (!user) {
-                    throw new Error("User not found");
-                }
+                const finalUsername =
+                    user?.username ??
+                    username ??
+                    "User";
 
-                const userAgent = createAgent(user.username, user.email);
+                const finalEmail =
+                    user?.email ??
+                    email ??
+                    tenantId;
 
-                const result = await run(userAgent, query, {  
+                console.log(
+                    "[agent] Using user:",
+                    finalUsername,
+                    finalEmail,
+                );
+
+                const userAgent = createAgent(
+                    finalUsername,
+                    finalEmail,
+                );
+
+                const result = await run(userAgent, query, {
                     context: {
                         tenantId,
                     },
@@ -50,7 +72,10 @@ export const agentRouter = createTRPCRouter({
                         ? result.finalOutput
                         : JSON.stringify(result.finalOutput);
 
-                console.log("[agent] Final response:", response);
+                console.log(
+                    "[agent] Final response:",
+                    response,
+                );
 
                 return {
                     success: true,
