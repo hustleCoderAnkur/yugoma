@@ -32,18 +32,22 @@ export default function EmailDetailCard({
     tenantId,
     threadId,
 }: EmailDetailCardProps) {
-    const { data, isLoading, isError } = api.gmail.getThread.useQuery(
-            {
-                tenantId,
-                threadId,
-            },
-            {
-                enabled: !!tenantId && !!threadId,
-            },
-        );
-
     const router = useRouter();
-    
+
+    const { data, isLoading, isError } = api.gmail.getThread.useQuery(
+        {
+            tenantId,
+            threadId,
+        },
+        {
+            enabled: !!tenantId && !!threadId,
+        },
+    );
+
+    const archiveMutation = api.gmail.archiveEmail.useMutation();
+
+    const trashMutation = api.gmail.trashThread.useMutation();
+
     if (isLoading) {
         return (
             <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
@@ -76,40 +80,25 @@ export default function EmailDetailCard({
             ? messages[messages.length - 1]
             : undefined;
 
-    const headers =
-        latest?.payload?.headers ?? [];
+    const headers = latest?.payload?.headers ?? [];
 
     const from =
-        headers.find(
-            (header) => header.name === "From",
-        )?.value ?? "Unknown sender";
+        headers.find((header) => header.name === "From")?.value ??
+        "Unknown sender";
 
     const to =
-        headers.find(
-            (header) => header.name === "To",
-        )?.value ?? "Unknown recipient";
+        headers.find((header) => header.name === "To")?.value ??
+        "Unknown recipient";
 
     const subject =
-        headers.find(
-            (header) => header.name === "Subject",
-        )?.value ?? "(No subject)";
+        headers.find((header) => header.name === "Subject")?.value ??
+        "(No subject)";
 
     const date =
-        headers.find(
-            (header) => header.name === "Date",
-        )?.value ?? "";
+        headers.find((header) => header.name === "Date")?.value ?? "";
 
-    const body =
-        latest?.snippet ??
-        "No content available.";
-    
-    
-    const archiveMutation =
-        api.gmail.archiveEmail.useMutation();
+    const body = latest?.snippet ?? "No content available.";
 
-    const trashMutation =
-        api.gmail.trashThread.useMutation();
-    
     const handleReply = () => {
         localStorage.setItem(
             "replyContext",
@@ -194,17 +183,27 @@ export default function EmailDetailCard({
 
                 <button
                     onClick={handleArchive}
-                    className="flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-2 text-sm font-medium hover:bg-gray-50"
+                    disabled={archiveMutation.isPending}
+                    className="flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:opacity-50"
                 >
-                    <Archive className="h-4 w-4" />
+                    {archiveMutation.isPending ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                        <Archive className="h-4 w-4" />
+                    )}
                     Archive
                 </button>
 
                 <button
                     onClick={handleTrash}
-                    className="flex items-center gap-2 rounded-2xl border border-red-200 px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50"
+                    disabled={trashMutation.isPending}
+                    className="flex items-center gap-2 rounded-2xl border border-red-200 px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50 disabled:opacity-50"
                 >
-                    <Trash2 className="h-4 w-4" />
+                    {trashMutation.isPending ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                        <Trash2 className="h-4 w-4" />
+                    )}
                     Trash
                 </button>
             </div>

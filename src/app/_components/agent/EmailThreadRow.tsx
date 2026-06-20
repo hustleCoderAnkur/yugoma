@@ -46,6 +46,16 @@ export default function EmailThreadRow({
         },
         {
             enabled: !!tenantId && !!threadId,
+            // These two options are the actual fix for the
+            // "stuck Loading email..." / rate-limit problem:
+            // - staleTime keeps the result cached for 5 min so
+            //   re-renders / pagination don't re-fire the same
+            //   20 requests over and over.
+            // - retry: false stops react-query from silently
+            //   retrying a rate-limited call 3x with backoff,
+            //   which is what was making isLoading hang forever.
+            staleTime: 5 * 60 * 1000,
+            retry: false,
         },
     );
 
@@ -62,12 +72,28 @@ export default function EmailThreadRow({
     }
 
     if (isError || !data) {
+        // Fall back to whatever the list endpoint already gave us
+        // instead of just showing a dead-end error row.
         return (
-            <div className="rounded-[28px] border border-red-100 bg-white px-5 py-5">
-                <p className="text-sm text-red-500">
-                    Failed to load email
-                </p>
-            </div>
+            <button
+                type="button"
+                onClick={onClick}
+                className="w-full rounded-[28px] border border-slate-200 bg-white p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md"
+            >
+                <div className="flex gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-700">
+                        ?
+                    </div>
+                    <div className="min-w-0 flex-1">
+                        <span className="truncate text-sm font-semibold text-slate-900">
+                            Unable to load
+                        </span>
+                        <p className="mt-2 line-clamp-2 text-xs leading-6 text-slate-500">
+                            {fallbackSnippet ?? ""}
+                        </p>
+                    </div>
+                </div>
+            </button>
         );
     }
 
@@ -87,7 +113,7 @@ export default function EmailThreadRow({
         headers.find(
             (header) => header.name === "From",
         )?.value ?? "Unknown sender";
-    
+
     const senderName =
         (from.split("<")[0] ?? "").trim() || "Unknown sender";
 

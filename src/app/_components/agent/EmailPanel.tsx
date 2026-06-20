@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Mail,
     Loader2,
@@ -25,10 +25,13 @@ export default function EmailPanel() {
 
     const [page, setPage] = useState(1);
 
-    const tenantId =
-        typeof window !== "undefined"
-            ? localStorage.getItem("tenantId") ?? ""
-            : "";
+    const [tenantId, setTenantId] = useState("");
+
+    useEffect(() => {
+        setTenantId(
+            localStorage.getItem("tenantId") ?? ""
+        );
+    }, []);
 
     const { data, isLoading, error } =
         api.gmail.listThreads.useQuery(
@@ -61,7 +64,7 @@ export default function EmailPanel() {
     return (
         <div className="flex h-full gap-6 bg-slate-50 p-6">
             {/* LEFT PANEL */}
-            <div className="flex w-420px flex-col overflow-hidden rounded-32px border border-slate-200 bg-white shadow-sm">
+            <div className="flex w-[420px] flex-col overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
                 {/* Header */}
                 <div className="border-b border-slate-100 px-5 py-5">
                     <h2 className="text-xl font-semibold tracking-tight text-slate-900">
@@ -86,7 +89,7 @@ export default function EmailPanel() {
                     </div>
                 )}
 
-                {/* Empty State */}
+                {/* Empty / Error State */}
                 {!isLoading && threads.length === 0 && (
                     <div className="flex flex-1 items-center justify-center px-6">
                         <div className="max-w-sm text-center">
@@ -114,25 +117,27 @@ export default function EmailPanel() {
                         <>
                             <div className="flex-1 overflow-y-auto px-4 py-4">
                                 <div className="space-y-3">
-                                    {threads.map((thread) => (
-                                        <EmailThreadRow
-                                            key={thread.id}
-                                            tenantId={tenantId}
-                                            threadId={
-                                                thread.entity_id ??
-                                                thread.id
-                                            }
-                                            fallbackSnippet={
-                                                thread.snippet
-                                            }
-                                            onClick={() =>
-                                                setSelectedThreadId(
-                                                    thread.entity_id ??
-                                                    thread.id,
-                                                )
-                                            }
-                                        />
-                                    ))}
+                                    {threads.map((thread) => {
+                                        const id =
+                                            thread.entity_id ??
+                                            thread.id;
+
+                                        return (
+                                            <EmailThreadRow
+                                                key={thread.id}
+                                                tenantId={tenantId}
+                                                threadId={id}
+                                                fallbackSnippet={
+                                                    thread.snippet
+                                                }
+                                                onClick={() =>
+                                                    setSelectedThreadId(
+                                                        id,
+                                                    )
+                                                }
+                                            />
+                                        );
+                                    })}
                                 </div>
                             </div>
 
@@ -211,7 +216,7 @@ export default function EmailPanel() {
                         />
                     </div>
                 ) : (
-                    <div className="flex flex-1 items-center justify-center rounded-32px border border-dashed border-slate-200 bg-white shadow-sm">
+                    <div className="flex flex-1 items-center justify-center rounded-[32px] border border-dashed border-slate-200 bg-white shadow-sm">
                         <div className="text-center">
                             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-slate-100">
                                 <Mail className="h-7 w-7 text-slate-700" />

@@ -57,7 +57,7 @@ export default function EmptyState({
         <>
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                    <div className="w-full max-w-md rounded-[32px] bg-white p-8 shadow-2xl">
+                    <div className="w-full max-w-md rounded-32px bg-white p-8 shadow-2xl">
                         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-3xl bg-black">
                             <Sparkles className="h-6 w-6 text-white" />
                         </div>
