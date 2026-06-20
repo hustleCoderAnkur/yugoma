@@ -3,13 +3,9 @@ import type { NextRequest } from "next/server";
 
 import { exchangeGoogleCode } from "@/server/services/auth/exchangeGoogleCode";
 
-export async function GET(
-    request: NextRequest,
-) {
+export async function GET(request: NextRequest) {
     try {
-        const code = request.nextUrl.searchParams.get(
-            "code",
-        );
+        const code = request.nextUrl.searchParams.get("code");
 
         if (!code) {
             return NextResponse.json(
@@ -17,25 +13,20 @@ export async function GET(
                     success: false,
                     message: "Missing authorization code",
                 },
-                {
-                    status: 400,
-                },
+                { status: 400 }
             );
         }
 
-        const tokens = await exchangeGoogleCode(
-            code,
-        );
+        const tokens = await exchangeGoogleCode(code);
 
         return NextResponse.json({
             success: true,
             tokens,
+            email: tokens.email,
+            name: tokens.name,
         });
     } catch (error) {
-        console.error(
-            "Google callback error:",
-            error,
-        );
+        console.error("Google callback error:", error);
 
         return NextResponse.json(
             {
@@ -45,9 +36,7 @@ export async function GET(
                         ? error.message
                         : "Something went wrong",
             },
-            {
-                status: 500,
-            },
+            { status: 500 }
         );
     }
 }

@@ -54,6 +54,9 @@ function CallbackContent() {
                     );
                 }
 
+                console.log("FULL RESPONSE:", data);
+                console.log("EMAIL:", data.email);
+
                 if (data.email) {
                     localStorage.setItem(
                         "tenantId",

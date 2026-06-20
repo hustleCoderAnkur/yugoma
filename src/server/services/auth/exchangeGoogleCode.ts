@@ -5,6 +5,14 @@ type GoogleTokenResponse = {
     scope: string;
     token_type: string;
     id_token?: string;
+
+    email?: string;
+    name?: string;
+};
+
+type GooglePayload = {
+    email?: string;
+    name?: string;
 };
 
 export async function exchangeGoogleCode(
@@ -38,5 +46,18 @@ export async function exchangeGoogleCode(
     }
 
     const data = (await response.json()) as GoogleTokenResponse;
+
+    if (data.id_token) {
+        const payload = JSON.parse(
+            Buffer.from(
+                data.id_token.split(".")[1]!,
+                "base64"
+            ).toString()
+        ) as GooglePayload;
+
+        data.email = payload.email;
+        data.name = payload.name;
+    }
+
     return data
 }
