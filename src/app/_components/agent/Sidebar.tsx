@@ -46,6 +46,11 @@ export default function Sidebar({
     const router = useRouter();
     const pathname = usePathname();
 
+    const tenantId =
+        typeof window !== "undefined"
+            ? localStorage.getItem("tenantId")
+            : "";
+
     return (
         <>
             {/* Overlay */}
@@ -144,12 +149,17 @@ export default function Sidebar({
                             </p>
                         </div>
 
+                        
                         <Switch
                             checked={gmailConnected}
                             onChange={(checked) => {
                                 if (!gmailConnected && checked) {
+                                 
+
                                     router.push(
-                                        "/api/connect?plugin=gmail&tenantId=kumawatankur48@gmail.com"
+                                        `/api/connect?plugin=gmail&tenantId=${encodeURIComponent(
+                                            tenantId ?? ""
+                                        )}`
                                     );
                                 }
                             }}
@@ -191,7 +201,9 @@ export default function Sidebar({
                             onChange={(checked) => {
                                 if (!calendarConnected && checked) {
                                     router.push(
-                                        "/api/connect?plugin=googlecalendar&tenantId=kumawatankur48@gmail.com"
+                                        `/api/connect?plugin=googlecalendar&tenantId=${encodeURIComponent(
+                                            tenantId ?? ""
+                                        )}`
                                     );
                                 }
                             }}

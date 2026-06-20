@@ -10,23 +10,27 @@ export function useConnectionStatus() {
 
     const gmail = api.gmail.listThreads.useQuery(
         { tenantId },
-        { enabled: !!tenantId, retry: false }
+        {
+            enabled: !!tenantId,
+            retry: false,
+        }
     );
 
     const calendar = api.calendar.listEvents.useQuery(
         { tenantId },
-        { enabled: !!tenantId, retry: false }
+        {
+            enabled: !!tenantId,
+            retry: false,
+        }
     );
 
     return {
         gmailConnected:
-            !gmail.isError &&
-            Array.isArray(gmail.data) &&
-            gmail.data.length > 0,
+            !gmail.isLoading &&
+            !gmail.isError,
 
         calendarConnected:
-            !calendar.isError &&
-            Array.isArray(calendar.data) &&
-            calendar.data.length > 0,
+            !calendar.isLoading &&
+            !calendar.isError,
     };
 }
