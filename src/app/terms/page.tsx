@@ -1,152 +1,198 @@
 export default function TermsPage() {
     return (
-        <main className="mx-auto max-w-4xl px-6 py-16">
-            <h1 className="text-4xl font-bold text-black">
-                Terms and Conditions
-            </h1>
+        <main className="min-h-screen bg-white px-6 py-16">
+            <div className="mx-auto max-w-4xl">
+                <h1 className="mb-2 text-4xl font-bold text-black">
+                    Terms of Service
+                </h1>
 
-            <p className="mt-3 text-sm text-gray-500">
-                Last updated: June 2026
-            </p>
+                <p className="mb-10 text-sm text-gray-500">
+                    Last Updated: June 21, 2026
+                </p>
 
-            <div className="mt-10 space-y-10 text-gray-700">
-                <section>
-                    <p>
-                        Welcome to Yugoma.
+                <p className="mb-8 leading-7 text-gray-700">
+                    Welcome to Yugoma. These Terms of Service (Terms)
+                    govern your access to and use of Yugoma website,
+                    dashboard, and AI productivity tools. By accessing
+                    or using our services, you agree to be bound by
+                    these Terms.
+                </p>
+
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        1. Services Description & Scope
+                    </h2>
+
+                    <p className="leading-7 text-gray-700">
+                        Yugoma provides an AI-powered productivity
+                        assistant that integrates with Gmail and Google
+                        Calendar. The platform helps users manage
+                        emails, drafts, and calendar events through
+                        natural language commands.
                     </p>
 
-                    <p className="mt-4">
-                        By using Yugoma, you agree to these Terms and
-                        Conditions.
+                    <p className="mt-4 leading-7 text-gray-700">
+                        Our AI assistant generates suggestions and
+                        performs actions only based on user
+                        instructions.
                     </p>
                 </section>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Use of Service
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        2. Accounts and Authentication
                     </h2>
 
-                    <p className="mt-4">
-                        Yugoma provides AI-powered productivity tools
-                        for Gmail and Google Calendar management.
+                    <p className="leading-7 text-gray-700">
+                        To use Yugoma, users may create an account
+                        using email authentication or sign in using
+                        their Google Account through official OAuth
+                        credentials.
                     </p>
 
-                    <p className="mt-4">
-                        Users are responsible for the actions they
-                        perform using the platform.
+                    <p className="mt-4 leading-7 text-gray-700">
+                        You are responsible for maintaining the
+                        confidentiality of your account and for all
+                        activities performed under your account.
                     </p>
                 </section>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Google Services
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        3. Google Integrations
                     </h2>
 
-                    <p className="mt-4">
-                        Certain features require Google account
-                        authorization.
+                    <p className="leading-7 text-gray-700">
+                        Yugoma connects to Gmail and Google Calendar
+                        only after explicit user authorization.
                     </p>
 
-                    <p className="mt-4">
-                        Users may revoke access to Google services at
-                        any time through their Google Account settings.
+                    <p className="mt-4 leading-7 text-gray-700">
+                        Users may revoke access at any time through
+                        Google Account settings or by disconnecting
+                        integrations from the application.
                     </p>
                 </section>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Acceptable Use
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        4. Usage Limits & Fair Use
                     </h2>
 
-                    <p className="mt-4">
+                    <p className="mb-4 leading-7 text-gray-700">
                         Users agree not to:
                     </p>
 
-                    <ul className="mt-3 list-disc space-y-2 pl-6">
-                        <li>Use the service for unlawful activities.</li>
-                        <li>Attempt unauthorized access to systems.</li>
-                        <li>Abuse or disrupt the platform.</li>
-                        <li>Misuse Gmail or Calendar integrations.</li>
+                    <ul className="list-disc space-y-3 pl-6 text-gray-700">
+                        <li>
+                            Abuse the platform or attempt unauthorized
+                            access.
+                        </li>
+
+                        <li>
+                            Generate spam, malicious content, or harmful
+                            activities.
+                        </li>
+
+                        <li>
+                            Interfere with the operation or security of
+                            Yugoma.
+                        </li>
                     </ul>
-                </section>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Account Security
-                    </h2>
-
-                    <p className="mt-4">
-                        Users are responsible for maintaining the
-                        security of their accounts and credentials.
+                    <p className="mt-5 leading-7 text-gray-700">
+                        Violation of these terms may result in temporary
+                        suspension or termination of access.
                     </p>
                 </section>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Availability
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        5. Data and Privacy
                     </h2>
 
-                    <p className="mt-4">
-                        We may update, suspend, or discontinue parts of
-                        the service without prior notice.
+                    <p className="leading-7 text-gray-700">
+                        Your use of Yugoma is also governed by our
+                        Privacy Policy.
+                    </p>
+
+                    <p className="mt-4 leading-7 text-gray-700">
+                        Yugoma does not sell user data and only accesses
+                        Google services to perform actions explicitly
+                        requested by the user.
+                    </p>
+                </section>
+
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        6. Disclaimers & Limitation of Liability
+                    </h2>
+
+                    <p className="leading-7 text-gray-700">
+                        Yugoma is provided on an (as is) basis without
+                        warranties of any kind.
+                    </p>
+
+                    <p className="mt-4 leading-7 text-gray-700">
+                        AI-generated responses may occasionally contain
+                        inaccuracies. Users are responsible for
+                        reviewing emails, drafts, and calendar actions
+                        before relying on them.
+                    </p>
+
+                    <p className="mt-4 leading-7 text-gray-700">
+                        Yugoma shall not be held liable for losses,
+                        damages, or consequences resulting from user
+                        actions or reliance on AI-generated outputs.
+                    </p>
+                </section>
+
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        7. Governing Law
+                    </h2>
+
+                    <p className="leading-7 text-gray-700">
+                        These Terms shall be governed and interpreted in
+                        accordance with the laws of India.
+                    </p>
+
+                    <p className="mt-4 leading-7 text-gray-700">
+                        Any disputes arising from the use of Yugoma
+                        shall be subject to the jurisdiction of courts
+                        located in India.
+                    </p>
+                </section>
+
+                <section className="mb-10">
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        8. Changes to Terms
+                    </h2>
+
+                    <p className="leading-7 text-gray-700">
+                        We reserve the right to update these Terms from
+                        time to time.
+                    </p>
+
+                    <p className="mt-4 leading-7 text-gray-700">
+                        Continued use of Yugoma after changes are
+                        published constitutes acceptance of the revised
+                        Terms.
                     </p>
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Limitation of Liability
+                    <h2 className="mb-4 text-2xl font-semibold">
+                        9. Contact Us
                     </h2>
 
-                    <p className="mt-4">
-                        Yugoma is provided on an as available basis.
+                    <p className="leading-7 text-gray-700">
+                        For questions regarding these Terms or for
+                        support, please contact:
                     </p>
 
-                    <p className="mt-4">
-                        We are not responsible for indirect losses,
-                        missed emails, scheduling conflicts, or damages
-                        resulting from the use of the platform.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Termination
-                    </h2>
-
-                    <p className="mt-4">
-                        Users may stop using Yugoma at any time.
-                    </p>
-
-                    <p className="mt-4">
-                        Accounts violating these terms may be suspended
-                        or removed.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Changes to Terms
-                    </h2>
-
-                    <p className="mt-4">
-                        We may update these Terms and Conditions from
-                        time to time. Continued use of Yugoma indicates
-                        acceptance of the updated terms.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 className="text-2xl font-semibold text-black">
-                        Contact
-                    </h2>
-
-                    <p className="mt-4">
-                        Questions regarding these Terms may be directed
-                        to:
-                    </p>
-
-                    <p className="mt-3 font-medium text-black">
-                        kumawatankur48@gmail.com
+                    <p className="mt-4 font-medium text-black">
+                        Email: support@yugoma.com
                     </p>
                 </section>
             </div>
