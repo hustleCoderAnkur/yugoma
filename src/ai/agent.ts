@@ -17,7 +17,7 @@ console.log("TOOLS COUNT:", Array.isArray(tools) ? tools.length : "not array");
 export const createAgent = (name: string, email: string) =>
     new Agent({
         name: "yugoma-ai",
-        model: "gpt-4.1-mini",
+        model: "gpt-4.1",
         instructions: SYSTEM_PROMPT(name, email),
         tools,
         modelSettings: {
